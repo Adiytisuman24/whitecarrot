@@ -11,7 +11,7 @@ interface ProctoringAlert {
 }
 
 interface AIProctoringProps {
-    videoRef: React.RefObject<HTMLVideoElement>;
+    videoRef: React.RefObject<HTMLVideoElement | null>;
     onCheatingDetected: (alerts: ProctoringAlert[]) => void;
     candidateId: string;
     questionId: string;

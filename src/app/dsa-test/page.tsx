@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DSAQuestion } from "@/lib/types";
 import { MockDB } from "@/lib/mock-db";
@@ -29,7 +29,7 @@ interface ProctoringAlert {
     message: string;
 }
 
-export default function DSATestPage() {
+function DSATestPageContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const questionId = searchParams.get('questionId');
@@ -51,7 +51,7 @@ export default function DSATestPage() {
     const [cheatingDetected, setCheatingDetected] = useState(false);
     const [autoRejected, setAutoRejected] = useState(false);
     
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -620,5 +620,13 @@ export default function DSATestPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function DSATestPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
+            <DSATestPageContent />
+        </Suspense>
     );
 }

@@ -57,7 +57,8 @@ export default function CandidateAuthPage() {
         const newCandidate = await MockDB.createCandidate({
           email: formData.email,
           password: formData.password,
-          name: formData.name
+          name: formData.name,
+          skills: []
         });
 
         if (!newCandidate) {
@@ -98,7 +99,8 @@ export default function CandidateAuthPage() {
           candidate = await MockDB.createCandidate({
             email: mockEmail,
             name: mockName,
-            password: 'social-login-' + provider
+            password: 'social-login-' + provider,
+            skills: []
           });
         }
 

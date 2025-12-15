@@ -147,6 +147,23 @@ export const MockDB = {
       return candidates.find(c => c.id === id) || null;
   },
 
+  getCandidateByEmail: async (email: string): Promise<Candidate | null> => {
+      await delay(200);
+      return candidates.find(c => c.email.toLowerCase() === email.toLowerCase()) || null;
+  },
+
+  loginCandidateWithPassword: async (email: string, password: string): Promise<Candidate | null> => {
+      await delay(300);
+      const candidate = candidates.find(c => c.email.toLowerCase() === email.toLowerCase());
+      if (!candidate) return null;
+      
+      // In a real app, you would hash and compare passwords
+      // For this mock, we'll do a simple comparison
+      if (candidate.password === password) {
+          return candidate;
+      }
+      return null;
+  },
 
   // --- Applications ---
   applyToJob: async (application: Omit<Application, 'id' | 'appliedAt' | 'status'>): Promise<Application> => {
@@ -241,16 +258,6 @@ export const MockDB = {
       return updated;
   },
 
-  updateApplication: async (id: string, updates: Partial<Application>): Promise<Application> => {
-      await delay(200);
-      const index = applications.findIndex(a => a.id === id);
-      if (index === -1) throw new Error("Application not found");
-      const updated = { ...applications[index], ...updates };
-      applications[index] = updated;
-      persist();
-      return updated;
-  },
-
   analyzeApplication: async (appId: string): Promise<Application | null> => {
       const appIndex = applications.findIndex(a => a.id === appId);
       if (appIndex === -1) return null;
@@ -328,6 +335,61 @@ export const MockDB = {
   getRecruiter: async (id: string): Promise<Recruiter | null> => {
       await delay(200);
       return recruiters.find(r => r.id === id) || null;
+  },
+
+  loginRecruiterWithPassword: async (usernameOrEmail: string, password: string): Promise<Recruiter | null> => {
+      await delay(300);
+      const recruiter = recruiters.find(r => 
+          r.email.toLowerCase() === usernameOrEmail.toLowerCase() || 
+          (r as any).username?.toLowerCase() === usernameOrEmail.toLowerCase()
+      );
+      if (!recruiter) return null;
+      
+      // In a real app, you would hash and compare passwords
+      if ((recruiter as any).password === password) {
+          return recruiter;
+      }
+      return null;
+  },
+
+  createRecruiter: async (data: { username: string; email: string; password: string; name: string; companyName: string }): Promise<Recruiter | null> => {
+      await delay(300);
+      
+      // Check if email or username already exists
+      const existing = recruiters.find(r => 
+          r.email.toLowerCase() === data.email.toLowerCase() ||
+          (r as any).username?.toLowerCase() === data.username.toLowerCase()
+      );
+      if (existing) return null;
+      
+      // Create new company for this recruiter
+      const companyId = Math.random().toString(36).substring(7);
+      const newCompany: Company = {
+          id: companyId,
+          slug: data.companyName.toLowerCase().replace(/\s+/g, '-'),
+          name: data.companyName,
+          branding: {
+              primaryColor: '#0066FF',
+              secondaryColor: '#00CCFF',
+              fontFamily: 'Inter'
+          },
+          sections: []
+      };
+      companies.push(newCompany);
+      
+      // Create new recruiter
+      const newRecruiter: Recruiter = {
+          id: Math.random().toString(36).substring(7),
+          email: data.email,
+          companyId,
+          name: data.name,
+          role: 'Admin',
+          ...(data.username && { username: data.username } as any),
+          ...(data.password && { password: data.password } as any)
+      };
+      recruiters.push(newRecruiter);
+      persist();
+      return newRecruiter;
   },
 
   // --- DSA Questions ---
