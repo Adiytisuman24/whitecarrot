@@ -3046,6 +3046,7 @@ export const INITIAL_CANDIDATES: import('./types').Candidate[] = [
     id: "john-doe-123",
     name: "John Doe",
     email: "john.doe@example.com",
+    password: "password123",
     emailVerified: true,
     role: "Full Stack Developer",
     bio: "Passionate Full Stack Developer with 4+ years of experience building scalable web applications. Specialized in React, Node.js, and cloud technologies. Love solving complex problems and mentoring junior developers.",
