@@ -121,6 +121,8 @@ export interface Recruiter {
   companyId: string;
   name: string;
   role: 'HR' | 'Hiring Manager' | 'Admin';
+  password?: string;
+  username?: string;
 }
 
 export interface DSAQuestion {

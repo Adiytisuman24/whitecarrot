@@ -341,12 +341,12 @@ export const MockDB = {
       await delay(300);
       const recruiter = recruiters.find(r => 
           r.email.toLowerCase() === usernameOrEmail.toLowerCase() || 
-          (r as any).username?.toLowerCase() === usernameOrEmail.toLowerCase()
+          r.username?.toLowerCase() === usernameOrEmail.toLowerCase()
       );
       if (!recruiter) return null;
       
       // In a real app, you would hash and compare passwords
-      if ((recruiter as any).password === password) {
+      if (recruiter.password === password) {
           return recruiter;
       }
       return null;
@@ -358,7 +358,7 @@ export const MockDB = {
       // Check if email or username already exists
       const existing = recruiters.find(r => 
           r.email.toLowerCase() === data.email.toLowerCase() ||
-          (r as any).username?.toLowerCase() === data.username.toLowerCase()
+          r.username?.toLowerCase() === data.username.toLowerCase()
       );
       if (existing) return null;
       
@@ -384,8 +384,8 @@ export const MockDB = {
           companyId,
           name: data.name,
           role: 'Admin',
-          ...(data.username && { username: data.username } as any),
-          ...(data.password && { password: data.password } as any)
+          username: data.username,
+          password: data.password
       };
       recruiters.push(newRecruiter);
       persist();

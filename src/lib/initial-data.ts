@@ -3105,6 +3105,8 @@ export const INITIAL_RECRUITERS: Recruiter[] = [
   {
     id: "rec-1",
     email: "hr@acmecorp.com",
+    username: "sarahjohnson",
+    password: "password123",
     companyId: "c1",
     name: "Sarah Johnson",
     role: "HR"
@@ -3112,6 +3114,8 @@ export const INITIAL_RECRUITERS: Recruiter[] = [
   {
     id: "rec-2",
     email: "hr@globex.com",
+    username: "michaelchen",
+    password: "password123",
     companyId: "c2",
     name: "Michael Chen",
     role: "HR"
@@ -3119,6 +3123,8 @@ export const INITIAL_RECRUITERS: Recruiter[] = [
   {
     id: "rec-3",
     email: "hr@soylentcorp.com",
+    username: "emilyrodriguez",
+    password: "password123",
     companyId: "c3",
     name: "Emily Rodriguez",
     role: "HR"
@@ -3126,6 +3132,8 @@ export const INITIAL_RECRUITERS: Recruiter[] = [
   {
     id: "rec-4",
     email: "hr@umbrellacorp.com",
+    username: "davidkim",
+    password: "password123",
     companyId: "c4",
     name: "David Kim",
     role: "HR"

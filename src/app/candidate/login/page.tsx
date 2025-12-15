@@ -44,8 +44,8 @@ export default function CandidateAuthPage() {
           localStorage.setItem('candidate', JSON.stringify(candidate));
         }
 
-        // Redirect to dashboard
-        router.push('/candidate/dashboard');
+        // Redirect to dashboard with candidateId
+        router.push(`/candidate/dashboard?candidateId=${candidate.id}`);
       } else {
         // Signup - create new candidate account
         if (!formData.email || !formData.password || !formData.name) {
@@ -72,8 +72,8 @@ export default function CandidateAuthPage() {
           localStorage.setItem('candidate', JSON.stringify(newCandidate));
         }
 
-        // Redirect to dashboard
-        router.push('/candidate/dashboard');
+        // Redirect to dashboard with candidateId
+        router.push(`/candidate/dashboard?candidateId=${newCandidate.id}`);
       }
     } catch (err: any) {
       setError(err.message || "Authentication failed. Please try again.");
@@ -106,7 +106,7 @@ export default function CandidateAuthPage() {
 
         if (candidate && typeof window !== 'undefined') {
           localStorage.setItem('candidate', JSON.stringify(candidate));
-          router.push('/candidate/dashboard');
+          router.push(`/candidate/dashboard?candidateId=${candidate.id}`);
         } else {
           setError("Social login failed. Please try again.");
           setLoading(false);

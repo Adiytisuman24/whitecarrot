@@ -55,20 +55,42 @@ function CandidateDashboard() {
   }, [activeBranch, activePath]);
 
   const loadData = useCallback(async () => {
-    if (!candidateId) return;
     try {
-      const cand = await MockDB.getCandidateById(candidateId);
+      // Resolve Candidate ID (URL priority, then LocalStorage)
+      let finalId = candidateId;
+      if (!finalId && typeof window !== 'undefined') {
+          const stored = localStorage.getItem('candidate');
+          if (stored) {
+              try {
+                  finalId = JSON.parse(stored).id;
+              } catch (e) {
+                  console.error("Failed to parse candidate session", e);
+              }
+          }
+      }
+
+      if (!finalId) {
+          router.push('/candidate/login');
+          setLoading(false);
+          return;
+      }
+      
+      const cand = await MockDB.getCandidateById(finalId);
       if (cand) {
           setCandidate(cand);
           const apps = await MockDB.getApplicationsByCandidate(cand.id);
           setApplications(apps);
+      } else {
+          // Candidate not found, redirect to login
+          router.push('/candidate/login');
       }
     } catch (e) {
         console.error(e);
+        router.push('/candidate/login');
     } finally {
         setLoading(false);
     }
-  }, [candidateId]);
+  }, [candidateId, router]);
 
   useEffect(() => {
     loadData();
