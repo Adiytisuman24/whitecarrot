@@ -3,7 +3,7 @@ import { INITIAL_COMPANIES, INITIAL_JOBS, INITIAL_CANDIDATES, INITIAL_RECRUITERS
 
 
 // Helper for persistence
-const STORAGE_KEY = 'mini_ats_db_v1';
+const STORAGE_KEY = 'mini_ats_db_v2';
 const isBrowser = typeof window !== 'undefined';
 
 function loadFromStorage() {
