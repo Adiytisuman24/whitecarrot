@@ -29,14 +29,15 @@ function saveToStorage(data: {
     }
 }
 
-const initialData = loadFromStorage() || {
-    companies: [...INITIAL_COMPANIES],
-    jobs: [...INITIAL_JOBS],
-    candidates: [...INITIAL_CANDIDATES],
-    recruiters: [...INITIAL_RECRUITERS],
-    dsaQuestions: [...INITIAL_DSA_QUESTIONS],
+const storedData = loadFromStorage();
 
-    applications: [
+const initialData = {
+    companies: (storedData && storedData.companies) ? storedData.companies : [...INITIAL_COMPANIES],
+    jobs: (storedData && storedData.jobs) ? storedData.jobs : [...INITIAL_JOBS],
+    candidates: (storedData && storedData.candidates) ? storedData.candidates : [...INITIAL_CANDIDATES],
+    recruiters: (storedData && storedData.recruiters) ? storedData.recruiters : [...INITIAL_RECRUITERS],
+    dsaQuestions: (storedData && storedData.dsaQuestions) ? storedData.dsaQuestions : [...INITIAL_DSA_QUESTIONS],
+    applications: (storedData && storedData.applications) ? storedData.applications : [
         {
             id: 'app-demo-1',
             jobId: 'job-0', // Full Stack Engineer at Umbrella Corp
