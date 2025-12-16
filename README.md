@@ -297,17 +297,29 @@ For issues and questions:
 ## 🎉 Features Summary
 
 ✅ Recruiter dashboard with company access control
+
 ✅ AI-powered resume matching (80% threshold)
+
 ✅ Automated rejection emails
+
 ✅ DSA question management
+
 ✅ Real-time camera proctoring
+
 ✅ Eye tracking and cheating detection
+
 ✅ Resume optimizer with download
+
 ✅ Candidate portal with learning paths
+
 ✅ Hackathon registration
+
 ✅ Skill testing and certificates
+
 ✅ GitHub/LeetCode integration
+
 ✅ Mobile-responsive design
+
 
 **The platform is production-ready!** 🚀
 #   w h i t e c a r r o  t 
